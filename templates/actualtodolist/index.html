@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- this ensures that base.html runs first, inside base the block area is replaced by the block area in this file -->
+
+{% block content %}
+
+
+    <div class="container-fluid py-3" style="background-color:#6E040F ;">     
+        
+        <div class="text-center" style=" color:white" >
+            <div class="float-start">
+                {% include 'partials/navbar.html' %}
+            </div>
+            
+            <h1>MY TO-DO List!</h1>
+
+        </div>
+        <img src="{% static 'images/download.png' %}" height="100px" width="100px" class="float-end my-3" style="background-color: #DBC0C3;">
+
+    </div>
+
+    <div class="row m-auto py-3" >
+        <div class="col-8 text-center">
+            
+                Pending tasks
+                <hr />
+            
+
+                {% for task in tasks %}
+                <div class="p-2 t m-1" style="background-color:#DBC0C3">
+                    {{task}}
+                    <i class="fa-solid fa-pen float-end p-1 " style="color: #a46269;"></i>
+                    <i class="fa-solid fa-trash-can float-end p-1" style="color: #a46269;"></i>
+                    <i class="fa-solid fa-square-check float-end p-1" style="color: #555a62;"></i>
+
+
+                    <!-- double curly bracket is to display something in html -->
+                </div>
+                {% endfor %}
+            
+
+        </div>
+
+        <div class="col-4" style="background-color:#DBC0C3">
+            <div class="text-center fw-bolder p-2">
+                Add new tasks
+                <hr />
+            </div>
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                    <!-- whenever u submit the form, the request will be the current url -->
+                    <!-- csrf token is mandate with post method in django, it is used to validate the post request -->
+                        <input type="text" id="task" name="task" class="form-control" placeholder="Enter your task here">
+                        <label for="task">New Task</label>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-sm text-light my-2" style="background-color:#6E040F" type="submit">
+                            Save
+                        </button>
+                    </div>
+               
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+{% endblock content %}
+
+<!-- class is used to group the styles together -->
